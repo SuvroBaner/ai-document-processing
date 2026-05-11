@@ -1,4 +1,14 @@
-.PHONY: dev down seed test lint typecheck eval demo migrate clean
+.PHONY: install dev down seed test lint typecheck eval demo migrate clean
+
+# Local Python deps via uv. Run inside an activated .venv
+# (see README "Local path"). Falls back to pip if uv is not installed.
+install:
+	@if command -v uv >/dev/null 2>&1; then \
+		uv pip install -e ".[dev]"; \
+	else \
+		echo "[install] uv not found; falling back to pip"; \
+		pip install -e ".[dev]"; \
+	fi
 
 dev:
 	docker compose up --build

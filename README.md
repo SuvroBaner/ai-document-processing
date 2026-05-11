@@ -18,17 +18,31 @@ Submittal PDF  →  Parse (pages + bboxes)  →  LLM extraction with citations
 
 ## Quickstart
 
+### Docker path (no local Python needed)
+
 Requirements: Docker, Make, an `OPENAI_API_KEY` (optional — tests stub the LLM).
 
 ```bash
 cp .env.example .env       # set OPENAI_API_KEY if running `make demo`
 make dev                   # postgres + redis + minio + app + worker + web
 make seed                  # create demo org/project/users + CSI vocab
-make test                  # pytest, full suite, LLM stubbed
-make demo                  # run extraction against real OpenAI on the sample fixture
 ```
 
 Then open `http://localhost:5173` (login: `reviewer@demo` / `demo`).
+
+### Local path (running tests, the demo CLI, or hacking on the code)
+
+Requirements: [`uv`](https://docs.astral.sh/uv/) (Python package manager — install with `curl -LsSf https://astral.sh/uv/install.sh | sh`), Python 3.12.
+
+```bash
+uv venv --python 3.12 .venv     # one-time
+source .venv/bin/activate
+make install                    # uv pip install -e ".[dev]"
+make test                       # pytest, full suite, LLM stubbed
+make demo                       # run extraction against real OpenAI on the sample fixture
+```
+
+> **Why `uv`?** Faster resolver, deterministic lockfile, drop-in for `pip`/`venv`. Nothing here is `uv`-specific — `python -m venv` + `pip install -e ".[dev]"` works identically. The CI workflow uses `uv` for the same reasons.
 
 ## Repository tour
 

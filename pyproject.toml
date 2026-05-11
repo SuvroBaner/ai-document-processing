@@ -21,7 +21,8 @@ dependencies = [
     "redis>=5.1",
     "boto3>=1.35",
     "python-jose[cryptography]>=3.3",
-    "passlib[bcrypt]>=1.7",
+    "passlib>=1.7",
+    "bcrypt<5",  # passlib's startup self-test breaks against bcrypt 5.x (probe sends >72-byte input which bcrypt 5 rejects)
     "python-multipart>=0.0.12",
     "openai>=1.54",
     "jsonschema>=4.23",

@@ -41,6 +41,13 @@ services:
     build: .
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     env_file: .env
+    # Container-side overrides: `localhost` inside a container is the container
+    # itself, not the host. These resolve to the sibling services via the
+    # default compose network. `environment:` overrides `env_file:`.
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/aidocs
+      REDIS_URL: redis://redis:6379/0
+      S3_ENDPOINT_URL: http://minio:9000
     ports:
       - "8000:8000"
     depends_on:
@@ -54,6 +61,10 @@ services:
     build: .
     command: celery -A app.extraction.tasks worker --loglevel=INFO
     env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/aidocs
+      REDIS_URL: redis://redis:6379/0
+      S3_ENDPOINT_URL: http://minio:9000
     depends_on:
       redis: { condition: service_healthy }
       postgres: { condition: service_healthy }

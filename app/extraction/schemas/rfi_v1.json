@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "rfi_v1",
+  "title": "Request For Information v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["rfi_number", "subject", "question"],
+  "properties": {
+    "rfi_number": {"type": "string"},
+    "subject": {"type": "string"},
+    "question": {"type": "string"},
+    "spec_section": {"type": ["string", "null"]},
+    "drawing_reference": {"type": ["string", "null"]}
+  }
+}

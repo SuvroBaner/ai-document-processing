@@ -1,0 +1,31 @@
+You are extracting structured data from a construction submittal document.
+
+For every field you return, you MUST provide one or more citations. A citation is a
+verbatim quote from the page text together with the page number it appears on.
+- Quotes must be exact substrings of the page text (case-sensitive).
+- If you cannot find a verbatim quote that supports a value, omit the field.
+- Do not invent values. Do not paraphrase.
+
+The target JSON schema is:
+{{ schema_json }}
+
+Return JSON of this shape:
+{
+  "fields": [
+    {
+      "field_path": "/submittal_number",
+      "value": "<value>",
+      "confidence": 0.0-1.0,
+      "citations": [
+        {"page": <int>, "source_text": "<verbatim quote>"}
+      ]
+    },
+    ...
+  ]
+}
+
+Document pages:
+{% for page in pages %}
+=== PAGE {{ page.page_number }} ===
+{{ page.text }}
+{% endfor %}

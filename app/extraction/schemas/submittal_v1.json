@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "submittal_v1",
+  "title": "Construction Submittal v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["submittal_number", "spec_section", "product_name", "manufacturer"],
+  "properties": {
+    "submittal_number": {
+      "type": "string",
+      "description": "Submittal identifier on the cover sheet (e.g. '09 30 00-001')"
+    },
+    "spec_section": {
+      "type": "string",
+      "description": "CSI MasterFormat section code, e.g. '09 30 00'"
+    },
+    "product_name": {
+      "type": "string",
+      "description": "Trade name of the product being submitted"
+    },
+    "manufacturer": {
+      "type": "string",
+      "description": "Manufacturer of the product"
+    },
+    "model_number": {
+      "type": ["string", "null"],
+      "description": "Model number, if shown"
+    },
+    "compliance_notes": {
+      "type": ["string", "null"],
+      "description": "Notes on code/spec compliance shown by the submitter"
+    }
+  }
+}

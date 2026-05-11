@@ -1,0 +1,2 @@
+# Drop `<name>.pdf` + `<name>.expected.json` pairs in this directory.
+# Each pair is one golden sample for the eval harness.
